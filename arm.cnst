@@ -1,0 +1,301 @@
+0.001 gdsReso
+0.001 shapeReso
+
+<top struct>
+# Creating tilt part
+<top struct>
+2 layer
+-15            5        -14.7            5        -14.4            5        -14.1            5        -13.8            5        -13.5            5        -13.2            5        -12.9            5        -12.6            5        -12.3            5          -12            5        -11.7            5        -11.4            5        -11.1            5        -10.8            5        -10.5            5        -10.2            5         -9.9            5         -9.6            5         -9.3            5           -9            5         -8.7            5         -8.4            5         -8.1            5         -7.8            5         -7.5            5         -7.2            5         -6.9            5         -6.6            5         -6.3            5           -6            5         -5.7            5         -5.4            5         -5.1            5         -4.8            5         -4.5            5         -4.2            5         -3.9            5         -3.6            5         -3.3            5           -3            5         -2.7            5         -2.4            5         -2.1            5         -1.8            5         -1.5            5         -1.2            5         -0.9            5         -0.6            5         -0.3            5            0            5          0.3            5          0.6            5          0.9            5          1.2            5          1.5            5          1.8            5          2.1            5          2.4            5          2.7            5            3            5          3.3            5          3.6            5          3.9            5          4.2            5          4.5            5          4.8            5          5.1            5          5.4            5          5.7            5            6            5          6.3            5          6.6            5          6.9            5          7.2            5          7.5            5          7.8            5          8.1            5          8.4            5          8.7            5            9            5          9.3            5          9.6            5          9.9            5         10.2            5         10.5            5         10.8            5         11.1            5         11.4            5         11.7            5           12            5         12.3            5         12.6            5         12.9            5         13.2            5         13.5            5         13.8            5         14.1            5         14.4            5         14.7            5           15            5 0 0 0 customTaper
+<phc_ws struct>
+2 layer
+0.000 0.000 25.000 2.000 0 rectangleC
+<phc_ws_uc_1L struct>
+2 layer
+20.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_1L 2 genArea>
+3 layer
+20.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_1L 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_1R struct>
+2 layer
+-20.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_1R 2 genArea>
+3 layer
+-20.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_1R 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_2L struct>
+2 layer
+35.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_2L 2 genArea>
+3 layer
+35.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_2L 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_2R struct>
+2 layer
+-35.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_2R 2 genArea>
+3 layer
+-35.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_2R 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_3L struct>
+2 layer
+50.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_3L 2 genArea>
+3 layer
+50.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_3L 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_3R struct>
+2 layer
+-50.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_3R 2 genArea>
+3 layer
+-50.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_3R 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_4L struct>
+2 layer
+65.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_4L 2 genArea>
+3 layer
+65.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_4L 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_4R struct>
+2 layer
+-65.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_4R 2 genArea>
+3 layer
+-65.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_4R 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_5L struct>
+2 layer
+80.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_5L 2 genArea>
+3 layer
+80.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_5L 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_5R struct>
+2 layer
+-80.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_5R 2 genArea>
+3 layer
+-80.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_5R 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_6L struct>
+2 layer
+95.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_6L 2 genArea>
+3 layer
+95.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_6L 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_6R struct>
+2 layer
+-95.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_6R 2 genArea>
+3 layer
+-95.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_6R 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_7L struct>
+2 layer
+110.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_7L 2 genArea>
+3 layer
+110.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_7L 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_7R struct>
+2 layer
+-110.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_7R 2 genArea>
+3 layer
+-110.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_7R 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_8L struct>
+2 layer
+125.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_8L 2 genArea>
+3 layer
+125.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_8L 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_8R struct>
+2 layer
+-125.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_8R 2 genArea>
+3 layer
+-125.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_8R 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_9L struct>
+2 layer
+140.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_9L 2 genArea>
+3 layer
+140.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_9L 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_9R struct>
+2 layer
+-140.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_9R 2 genArea>
+3 layer
+-140.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_9R 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_10L struct>
+2 layer
+155.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_10L 2 genArea>
+3 layer
+155.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_10L 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_10R struct>
+2 layer
+-155.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_10R 2 genArea>
+3 layer
+-155.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_10R 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_11L struct>
+2 layer
+170.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_11L 2 genArea>
+3 layer
+170.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_11L 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_11R struct>
+2 layer
+-170.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_11R 2 genArea>
+3 layer
+-170.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_11R 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_12L struct>
+2 layer
+185.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_12L 2 genArea>
+3 layer
+185.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_12L 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_12R struct>
+2 layer
+-185.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_12R 2 genArea>
+3 layer
+-185.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_12R 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_13L struct>
+2 layer
+200.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_13L 2 genArea>
+3 layer
+200.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_13L 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_13R struct>
+2 layer
+-200.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_13R 2 genArea>
+3 layer
+-200.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_13R 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_14L struct>
+2 layer
+215.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_14L 2 genArea>
+3 layer
+215.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_14L 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_14R struct>
+2 layer
+-215.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_14R 2 genArea>
+3 layer
+-215.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_14R 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_15L struct>
+2 layer
+230.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_15L 2 genArea>
+3 layer
+230.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_15L 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<phc_ws_uc_15R struct>
+2 layer
+-230.000 0.000 15.000 2.000 0 rectangleC
+<genArea1 phc_ws_uc_15R 2 genArea>
+3 layer
+-230.000 0.000 12.000 1.000 0.200 0.200 0 roundrectC
+<genArea2 phc_ws_uc_15R 3 genArea>
+<phc_ws struct>
+<genArea1 genArea2 3 subtract>
+<genArea1 phc_ws 2 genArea>
+<genArea2 phc_ws 3 genArea>
+<phc struct>
+<genArea1 genArea2 1 or>
+<phc struct>
+2 layer
+0.000 0.000 880.000 20.000 0 rectangleLH
+<genArea1 phc 1 genArea>
+<genArea2 phc 2 genArea>
+<phc_ins struct>
+<genArea1 genArea2 1 and>
+<top struct>
+3 layer
+<phc_ins 0 0 N 1 90 instance>
+<phc_ins 0 0 N 1 180 instance>
+<phc_ins 0 0 N 1 270 instance>
+<phc_ins 0 0 N 1 0 instance>
+<genArea1 top 2 genArea>
+<genArea2 top 3 genArea>
+<genArea1 genArea2 1 or>
