@@ -219,6 +219,20 @@ for i = 1 : length(Ls)
     sis{i} = si;
 end
 
+thetas = -0.5/180*pi:0.1/180*pi:0.5/180*pi;
+n = length(thetas);
+spacialOrder = 5;
+ris = zeros(spacialOrder*2+1, n);
+tis = zeros(spacialOrder*2+1, n);
+sis = cell(1, n);
+for i = 1 : n
+    temp = Phc2d(1064e-9, 184.4e-9, thetas(i), 2.6^2, (2.6^2)/2-1, 100e-9, 5);
+    [ri,ti,si] = temp.Solve();
+    ris(:,i) = ri;
+    tis(:,i) = ti;
+    sis{i} = si;
+end
+
 maxp = max(max(abs(Eg)));
 [~,plot] = contourf(temp.meshX, temp.meshZ, real(Eg), 50);
 hold on
@@ -243,10 +257,10 @@ test = Phc2d(1064e-9, 653e-9, 2/180*pi, 2.6^2, (2.6^2)/2-1, 100e-9, 10);
 test = Phc2d(1064e-9, 653e-9, 0/180*pi, 1, 0, 100e-9, 1);
 Eg = test.HGBeamInc(5e-6, 0/180*pi);
 
-cache =Ere;
+cache = Ere;
 dataE = cache/max(max(abs(cache)))*256;
 fig = figure;
-fig.Position = [100 100 1000 1000];
+fig.Position = [100 100 700 700];
 boxdata = zeros([size(cache),3]);
 boxAlphadata = zeros(size(cache));
 idx1 = find(test.meshZ == 0);
@@ -271,29 +285,32 @@ while true
     end
 end
 
-test = Phc2d(1064e-9, 184.4e-9, 0/180*pi, 2.6^2, (2.6^2)/2-1, 100e-9, 10);
+test = Phc2d(1064e-9, 184.4e-9, 1/180*pi, 2.6^2, (2.6^2)/2-1, 100e-9, 10);
 [ri, ti, si] = test.Solve();
 [Ere, Ein] = test.Exz(ri, ti, si);
 
 Option = 0; %0 for just total without Ein; 1 for Etotal;
 cacheIn = Ein;
 cache = Ere;
-dataE = cache/max(max(abs(cache)))*256;
-dataEin = cache/max(max(abs(cacheIn)))*256;
+maxE = max([max(max(abs(cache))), max(max(abs(cacheIn)))]);
+dataE = cache/maxE*256;
+dataEin = cacheIn/maxE*256;
 fig = figure;
-fig.Position = [100 100 1000 1000];
+fig.Position = [100 100 500 500];
 boxdata = zeros([size(cache),3]);
 boxAlphadata = zeros(size(cache));
 idx1 = find(test.meshZ == 0);
 [~, idx2] = min(abs(test.meshZ-test.d));
 boxAlphadata(idx1, :, :) = 255;
 boxAlphadata(idx2, :, :) = 255;
+EinAlpha = zeros(size(cache)) + 0.5;
 img = image(uint8(real(dataE*exp(1j*2*pi*0))));
 hold on;
 boximg = image(boxdata);
 boximg.AlphaData = boxAlphadata;
-colorbar;
 imgin = image(uint8(real(dataEin*exp(1j*2*pi*0))));
+imgin.AlphaData = EinAlpha;
+colorbar;
 tstep = 0.01;
 ts = 0:tstep:1;
 i = 1;
@@ -378,6 +395,35 @@ i = 1;
 while true
     i = mod(i, length(ts))+1;
     img.CData = uint8(real(dataE*exp(1j*2*pi*ts(i))));
+    drawnow
+    pause(tstep)
+    if fig.CurrentCharacter > 0
+        break;
+    end
+end
+
+
+cache = Ere;
+dataE = cache/max(max(abs(cache)))*256;
+fig = figure;
+fig.Position = [100 100 700 700];
+boxdata = zeros([size(cache),3]);
+boxAlphadata = zeros(size(cache));
+idx1 = find(test.meshZ == 0);
+[~, idx2] = min(abs(test.meshZ-test.d));
+boxAlphadata(idx1, :, :) = 255;
+boxAlphadata(idx2, :, :) = 255;
+img = image(uint8(abs(dataE*exp(-1j*2*pi*0))));
+hold on;
+boximg = image(boxdata);
+boximg.AlphaData = boxAlphadata;
+colorbar;
+tstep = 0.01;
+ts = 0:tstep:1;
+i = 1;
+while true
+    i = mod(i, length(ts))+1;
+    img.CData = uint8(abs(dataE*exp(1j*2*pi*ts(i))));
     drawnow
     pause(tstep)
     if fig.CurrentCharacter > 0

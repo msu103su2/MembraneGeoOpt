@@ -30,8 +30,8 @@ classdef Phc2d < handle
             sized = min([obj.Gamma, obj.d, obj.lambda]);
             span = max([obj.Gamma, obj.d, obj.lambda]);
             span = 5e-6;
-            obj.meshX = -10*span:sized/10:10*span;
-            obj.meshZ = -10*sized:sized/10:10*sized;
+            obj.meshX = -80e-6:1e-8:80e-6;
+            obj.meshZ = -3e-6:1e-8:3e-6;
         end
 
         function Eg = HGBeamInc(obj, w0, thetap)
@@ -50,6 +50,37 @@ classdef Phc2d < handle
                 Eg = Eg + ps(i)* Exz(obj, ri, ti, si);
                 disp(i/length(ks));
             end
+        end
+
+        function [re, in] = HGBeamInc2(obj, w0, thetap)
+            %METHOD1 Summary of this method goes here
+            %   Detailed explanation goes here
+            kx0 = 2*pi/obj.lambda*tan(thetap);
+            kcut = 1/(pi*w0);
+            kxs = -3*kcut:kcut/10:3*kcut;
+            ps = zeros(length(kxs), 1);
+            spacialOrder = obj.cutoff_N;
+            
+            ris = zeros(spacialOrder*2+1, length(ps));
+            tis = zeros(spacialOrder*2+1, length(ps));
+            sis = cell(1, length(ps));
+            cMs = zeros(2*(2*spacialOrder + 1), length(ps));
+            thetaps = zeros(length(ps), 1);
+            ks = zeros(length(ps), 1);
+            lambdaMs = zeros(2*(2*spacialOrder + 1), length(ps));
+            w1Ms = zeros(spacialOrder*2+1, 2*(2*spacialOrder + 1), length(ps));
+            for i = 1:length(kxs)
+                kx = kxs(i)*cos(thetap) + 2*pi/obj.lambda*sin(thetap);
+                kz = -kxs(i)*sin(thetap) + 2*pi/obj.lambda*cos(thetap);
+                thetak = atan(kx/kz);
+                ps(i) = exp(-pi^2*w0^2*kxs(i)^2);
+                obj.setThetap(thetak);
+                thetaps(i) = thetak;
+                [ris(:, i), tis(:, i) ,sis{1, i}, w1Ms(:,:,i), cMs(:, i), lambdaMs(:, i)] = obj.Solve();
+                disp(i/length(kxs));
+                ks(i) = sqrt(kx^2 + kz^2);
+            end
+            [re, in] = obj.Exzf(ps, ks, thetaps, ris, tis, cMs, w1Ms, lambdaMs);
         end
 
         function setThetap(obj, thetap)
@@ -120,7 +151,7 @@ classdef Phc2d < handle
             in = [Exzin1; Exzin2; Exzin3];
         end
 
-        function [r,t,si] = Solve(obj)
+        function [r,t,si, w1M, cM, lambdaM] = Solve(obj)
             A = obj.MatrixA();
             delta_order = zeros(2*obj.cutoff_N+1,1);
             delta_order(obj.cutoff_N+1) = 1;
@@ -166,7 +197,67 @@ classdef Phc2d < handle
             raysN = obj.cutoff_N*2+1;
             r = S(1:raysN);
             t = S(raysN+1:2*raysN);
-            si =@(z) w1M*(S(2*raysN+1:end).*exp(lambdaM*z));
+            cM = S(2*raysN+1:end);
+            si =@(z) w1M*(cM.*exp(lambdaM*z));
+        end
+        
+        function [re, in] = Exzf(obj, ps, ks, thetaps, ris, tis, cMs, w1Ms, lambdaMs)
+            thetas = asin(sin(thetaps)/sqrt(obj.epbar));
+            k1s = ks;
+            k2s = k1s*sqrt(obj.epbar);
+            k3s = k1s;
+            k2zs = k2s.*cos(thetas);
+            K = 2*pi/obj.Gamma;
+            
+            ps = reshape(ps, [1, length(ps)]);
+            thetaps = reshape(thetaps, [1, length(thetaps)]);
+            orders = -obj.cutoff_N : 1 : obj.cutoff_N;
+            orders = orders';
+            
+            k2xis = zeros(length(orders), length(ps));
+            fsps = cell(1, length(ps));
+            for i = 1 : length(ps)
+                k2xis(: , i) = k2s(i)*sin(thetas(i)) - orders*K;
+            end
+            
+            k1xis = k2xis;
+            k3xis = k2xis;
+            
+            k1zs = sqrt(repmat(k1s.', [obj.cutoff_N*2+1, 1]).^2 - k1xis.^2);
+            k3zs = sqrt(repmat(k3s.', [obj.cutoff_N*2+1, 1]).^2 - k3xis.^2);
+            k2zs = repmat(k2zs.', [obj.cutoff_N*2+1, 1]);
+            k1zs = real(k1zs) - 1j*abs(imag(k1zs));
+            k3zs = real(k3zs) - 1j*abs(imag(k3zs));
+            
+            fin1 = @(x, z) ps* exp(-1j*(k1s.*( sin(thetaps.')*x + cos(thetaps.')*z )));
+            fre1 = @(x, z) ps* (sum(ris.*exp(-1j*k1xis*x + 1j* k1zs*z), 1)).';
+            
+            fre2 = @(x, z) 0;
+            for i = 1 : length(ps)
+                fsps{i} =  @(x, z) ps(i) * ((exp(-1j*k2xis(:,i)*x - 1j*k2zs(:,i)*z).')*(w1Ms(:, :, i)*(cMs(:,i).*exp(lambdaMs(:,i)*z))));
+                fre2 = @(x, z) fre2(x, z) + fsps{i}(x, z); 
+            end
+            fin2 = @(x, z) 0;
+            
+            fin3 = @(x, z) 0;
+            fre3 = @(x, z) ps* (sum(tis.*exp(-1j*k3xis*x - 1j* k3zs*(z - obj.d)), 1)).';
+            %
+            [X2d1, Z2d1] = meshgrid(obj.meshX, obj.meshZ(obj.meshZ < 0));
+            [X2d2, Z2d2] = meshgrid(obj.meshX, obj.meshZ(obj.meshZ <= obj.d & obj.meshZ >= 0));
+            [X2d3, Z2d3] = meshgrid(obj.meshX, obj.meshZ(obj.meshZ > obj.d));
+            %
+            
+            %incmoing
+            Exzin1 = arrayfun(fin1, X2d1, Z2d1);
+            Exzre1 = arrayfun(fre1, X2d1, Z2d1);
+            %inside
+            Exzin2 = arrayfun(fin2, X2d2, Z2d2);
+            Exzre2 = arrayfun(fre2, X2d2, Z2d2);
+            %outgoing
+            Exzin3 = arrayfun(fin3, X2d3, Z2d3);
+            Exzre3 = arrayfun(fre3, X2d3, Z2d3);
+            re = [Exzre1; Exzre2; Exzre3];
+            in = [Exzin1; Exzin2; Exzin3];
         end
 
         function RayPlot(obj, r, t, si, alpha)
@@ -253,8 +344,6 @@ classdef Phc2d < handle
                 end
             end
             hold off;
-
-
         end
     end
 end
